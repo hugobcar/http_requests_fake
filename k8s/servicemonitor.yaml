@@ -1,0 +1,21 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/instance: testehugo
+    app.kubernetes.io/name: testehugo
+  name: testehugo
+  namespace: testehugo-helm
+spec:
+  endpoints:
+  - interval: 10s
+    path: /metrics
+    port: prometheus
+  namespaceSelector:
+    matchNames:
+    - testehugo-helm
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: testehugo
+      app.kubernetes.io/name: testehugo
+      prometheus.ifood/scrapping-enabled: "true"

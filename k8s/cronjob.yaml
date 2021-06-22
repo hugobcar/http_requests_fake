@@ -1,0 +1,21 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  labels:
+    app.kubernetes.io/instance: testehugo
+    app.kubernetes.io/name: testehugo
+  name: testehugo-warmup
+  namespace: testehugo-helm
+spec:
+  successfulJobsHistoryLimit: 7
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: kubectl-container
+            image: bitnami/kubectl:latest
+            command: ["sh", "-c", "date"]
+          restartPolicy: Never
+

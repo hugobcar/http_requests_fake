@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: testehugo
+    app.kubernetes.io/name: testehugo
+  name: testehugo
+  namespace: testehugo-helm
+spec:
+  selector:
+    matchLabels:
+      name: testehugo
+  template:
+    metadata:
+      labels:
+        app: testehugo
+        name: testehugo
+    spec:
+      containers:
+      - name: testepython
+        image: hugobcar/http_requests_fake:sum15
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+          name: prometheus
+          protocol: TCP
+        - containerPort: 6885
+          name: http
+          protocol: TCP
+        resources:
+          limits:
+            memory: 512Mi
+            cpu: 1000m
+          requests:
+            memory: 256Mi
+            cpu: 200m

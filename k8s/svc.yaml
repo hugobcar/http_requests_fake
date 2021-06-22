@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/instance: testehugo
+    app.kubernetes.io/name: testehugo
+    prometheus.ifood/scrapping-enabled: "true"
+  name: testehugo
+  namespace: testehugo-helm
+spec:
+  clusterIP: None
+  ports:
+  - name: prometheus
+    port: 5000
+    protocol: TCP
+    targetPort: prometheus
+  - name: http
+    port: 6885
+    protocol: TCP
+    targetPort: http
+  selector:
+    name: testehugo
+  sessionAffinity: None
+  type: ClusterIP
